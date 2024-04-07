@@ -1,0 +1,58 @@
+
+#version 450 core
+
+layout(set = 0, binding = 0) buffer Output {
+    double fn_results[];
+};
+
+layout (push_constant) uniform constants {
+    double start_x;
+    double end_x;
+    double splits_x;
+
+    double start_y;
+    double end_y;
+    double splits_y;
+};
+
+double pow6(double val) {
+    return val * val * val * val * val * val;
+}
+
+double func2(double x, double y) {
+    const double pi = 3.14159265358979323846;
+    return -20 * exp(float(-0.2 * sqrt(0.5 * (x * x + y * y)))) -
+           exp(0.5 * (cos(float(2 * pi * x)) + cos(float(2 * pi * y)))) + 20 +
+           exp(1);
+}
+
+void main() {
+    const double side_x = (end_x - start_x) / gl_NumWorkGroups.x;
+    const double side_y = (end_y - start_y) / gl_NumWorkGroups.y;
+
+    const double step_x = (end_x - start_x) / splits_x;
+    const double step_y = (end_y - start_y) / splits_y;
+
+
+    const double local_start_x = start_x + side_x * gl_GlobalInvocationID.x;
+    const double local_start_y = start_y + side_y * gl_GlobalInvocationID.y;
+
+    const double local_end_x = start_x + side_x * (1 + gl_GlobalInvocationID.x);
+    const double local_end_y = start_y + side_y * (1 + gl_GlobalInvocationID.y);
+
+    double x = local_start_x;
+    double y = local_start_y;
+
+    double result = 0.0;
+    while (y < local_end_y) {
+        x = local_start_x;
+        while (x < local_end_x) {
+            result += func2(x, y);
+            x += step_x;
+        }
+        y += step_y;
+    }
+
+    uint idx = gl_GlobalInvocationID.y * gl_NumWorkGroups.x + gl_GlobalInvocationID.x;
+    fn_results[idx] = result;
+}

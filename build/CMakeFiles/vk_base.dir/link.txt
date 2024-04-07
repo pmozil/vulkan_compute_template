@@ -1,0 +1,2 @@
+/usr/bin/ar qc libvk_base.a CMakeFiles/vk_base.dir/src/vulkan_base/buffer.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/command_buffer.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/create_info.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/debug.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/descriptor_set_manip.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/sync_objects.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/utils.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/vk_device.cpp.o CMakeFiles/vk_base.dir/src/vulkan_base/vk_instance.cpp.o
+/usr/bin/ranlib libvk_base.a

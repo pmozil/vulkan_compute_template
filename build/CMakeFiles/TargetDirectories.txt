@@ -1,0 +1,5 @@
+/home/petro/Projects/apps/acs/integrals_vulkan/build/CMakeFiles/vk_base.dir
+/home/petro/Projects/apps/acs/integrals_vulkan/build/CMakeFiles/integrate_parallel_vulkan.dir
+/home/petro/Projects/apps/acs/integrals_vulkan/build/CMakeFiles/Shaders.dir
+/home/petro/Projects/apps/acs/integrals_vulkan/build/CMakeFiles/edit_cache.dir
+/home/petro/Projects/apps/acs/integrals_vulkan/build/CMakeFiles/rebuild_cache.dir
