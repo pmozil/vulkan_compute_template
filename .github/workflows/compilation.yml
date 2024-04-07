@@ -1,0 +1,31 @@
+name: Simple compilation
+
+on:
+  push:
+    branches:
+      - master
+    paths-ignore:
+      - 'data/**'
+      - '**.md'
+      - '**.py'
+      - '**.sh'
+      - '**.txt'
+
+  workflow_dispatch:
+  pull_request:
+    branches:
+    - master
+    
+concurrency:
+  group: ci-${{ github.actor }}
+  cancel-in-progress: true
+  
+jobs:
+  build:
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Test gcc/clang compilation
+      run: docker run --rm --shm-size=2048 --mount source=$(pwd),target=/home/root,type=bind -w /home/root apps_ubuntu
