@@ -16,9 +16,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #  but sometimes it creates too much trouble, so default is OFF.
 set(WARNINGS_AS_ERRORS ON)
 
-#! Always use PVS Studio while developing.
-set(ENABLE_PVS_STUDIO OFF)
-
 #! Select appropriate sanitizers.
 #  Definitely enable sanitizers while developing.
 #  Disable it for the production builds and before submitting for grading.
