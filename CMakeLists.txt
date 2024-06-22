@@ -81,15 +81,15 @@ target_link_libraries(vk_base PUBLIC Vulkan::Vulkan)
 
 # Complie the application
 file(GLOB MAIN_SRC
-    ${CMAKE_SOURCE_DIR}/src/main.cpp  
-    ${CMAKE_SOURCE_DIR}/src/parse_file.cpp  
+    ${CMAKE_SOURCE_DIR}/src/main.cpp
+    ${CMAKE_SOURCE_DIR}/src/parse_file.cpp
     ${CMAKE_SOURCE_DIR}/src/simple_compute_pipeline.cpp)
 
 # set(APP_SOURCE_FILES ${SOURCE_FILES} CACHE INTERNAL STRINGS)
 add_executable(${PROJECT_NAME} ${MAIN_SRC})
-target_include_directories(${PROJECT_NAME} 
+target_include_directories(${PROJECT_NAME}
     PUBLIC ${CMAKE_SOURCE_DIR}/include)
-target_include_directories(${PROJECT_NAME} 
+target_include_directories(${PROJECT_NAME}
     PUBLIC ${CMAKE_SOURCE_DIR}/include/vulkan_base)
 target_link_libraries(${PROJECT_NAME} PUBLIC vk_base)
 
@@ -107,13 +107,13 @@ foreach(GLSL ${GLSL_SOURCE_FILES})
   add_custom_command(
     OUTPUT ${SPIRV}
     COMMAND ${CMAKE_COMMAND} -E make_directory "${PROJECT_BINARY_DIR}/shaders/"
-    COMMAND ${Vulkan_GLSC_VALIDATOR} ${GLSL} -o ${SPIRV} --target-env=vulkan1.3 -O
+    COMMAND ${Vulkan_GLSC_VALIDATOR} ${GLSL} -o ${SPIRV} -O
     DEPENDS ${GLSL})
   list(APPEND SPIRV_BINARY_FILES ${SPIRV})
 endforeach(GLSL)
 
 add_custom_target(
-    Shaders 
+    Shaders
     DEPENDS ${SPIRV_BINARY_FILES}
     )
 

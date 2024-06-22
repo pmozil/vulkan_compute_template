@@ -28,32 +28,32 @@ inline constexpr void UNUSED(auto val) { (void)(val); }
 
 // Data structure to store queue family indices
 struct QueueFamilyIndices {
-  std::optional<uint32_t> graphicsFamily;
-  std::optional<uint32_t> presentFamily;
-  std::optional<uint32_t> computeFamily;
-  std::optional<uint32_t> transferFamily;
+    std::optional<uint32_t> graphicsFamily;
+    std::optional<uint32_t> presentFamily;
+    std::optional<uint32_t> computeFamily;
+    std::optional<uint32_t> transferFamily;
 
-  // Check if all required queue families are present
-  [[nodiscard]] inline bool isComplete() const {
-    return computeFamily.has_value();
-  }
+    // Check if all required queue families are present
+    [[nodiscard]] inline bool isComplete() const {
+        return computeFamily.has_value();
+    }
 
-  // Check if a dedicated transfer queue family is available
-  [[nodiscard]] inline bool hasDedicatedTransfer() const {
-    return transferFamily.has_value();
-  }
+    // Check if a dedicated transfer queue family is available
+    [[nodiscard]] inline bool hasDedicatedTransfer() const {
+        return transferFamily.has_value();
+    }
 };
 
 // Macro for checking Vulkan function calls for errors
 #define VK_CHECK(f)                                                            \
-  {                                                                            \
-    VkResult res = (f);                                                        \
-    if (res != VK_SUCCESS) {                                                   \
-      std::cout << "Fatal : VkResult is \"" << res << "\" in " << __FILE__     \
-                << " at line " << __LINE__ << "\n";                            \
-      assert(res == VK_SUCCESS);                                               \
-    }                                                                          \
-  }
+    {                                                                          \
+        VkResult res = (f);                                                    \
+        if (res != VK_SUCCESS) {                                               \
+            std::cout << "Fatal : VkResult is \"" << res << "\" in "           \
+                      << __FILE__ << " at line " << __LINE__ << "\n";          \
+            assert(res == VK_SUCCESS);                                         \
+        }                                                                      \
+    }
 
 static constexpr size_t DEFAULT_FENCE_TIMEOUT =
     std::numeric_limits<size_t>::max();

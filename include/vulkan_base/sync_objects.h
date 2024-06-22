@@ -8,20 +8,21 @@
 #include <memory>
 
 class SyncObjects {
-  std::shared_ptr<device::DeviceHandler> m_deviceHandler;
+    std::shared_ptr<device::DeviceHandler> m_deviceHandler;
 
-public:
-  SyncObjects(SyncObjects &&) = delete;
-  SyncObjects(SyncObjects const &) = delete;
-  SyncObjects &operator=(SyncObjects &&) = delete;
-  SyncObjects &operator=(SyncObjects const &) = delete;
+      public:
+    SyncObjects(SyncObjects &&) = delete;
+    SyncObjects(SyncObjects const &) = delete;
+    SyncObjects &operator=(SyncObjects &&) = delete;
+    SyncObjects &operator=(SyncObjects const &) = delete;
 
-  std::vector<VkSemaphore> semaphores{};
-  std::vector<VkFence> fences{};
+    std::optional<std::vector<VkSemaphore>> timed_semaphores{};
+    std::vector<VkSemaphore> semaphores{};
+    std::vector<VkFence> fences{};
 
-  SyncObjects(std::shared_ptr<device::DeviceHandler> deviceHandler,
-              std::size_t count);
-  ~SyncObjects();
+    SyncObjects(std::shared_ptr<device::DeviceHandler> deviceHandler,
+                std::size_t count, bool create_timed_semaphores = false);
+    ~SyncObjects();
 };
 
 #endif

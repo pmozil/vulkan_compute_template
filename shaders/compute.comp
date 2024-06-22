@@ -1,17 +1,21 @@
-#version 450 core
+#version 460 core
 
-layout (push_constant) uniform constants {
-    double start;
-    double end;
-    double step_x;
-    double step_y;
+#extension GL_EXT_debug_printf : enable
+
+layout(push_constant) uniform push_constants {
+    int n_vals;
 };
 
-layout(set = 0, binding = 0) buffer Output {
-    double fn_results[];
+layout(std430, set = 0, binding = 0) readonly buffer Output {
+    int vals[];
 };
 
 void main() {
-    uint idx = gl_GlobalInvocationID.y * gl_NumWorkGroups.x + gl_GlobalInvocationID.x;
-    fn_results[idx] = idx;
+    int offset = int(gl_NumWorkGroups.x* gl_NumWorkGroups.y);
+    int idx = int(gl_GlobalInvocationID.x * gl_NumWorkGroups.y + gl_GlobalInvocationID.y);
+
+    for (; idx < n_vals; idx += offset) {
+        int val = vals[idx];
+            debugPrintfEXT("Big bad at index %i with value %i\n", idx, val);
+    }
 }
